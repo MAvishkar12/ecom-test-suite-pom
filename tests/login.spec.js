@@ -31,11 +31,22 @@ test("No password Present or wrong password", async ({ page }) => {
         .toContainText('Username and password do not match ')
 })
 
-test.only("Invetory Page heading Check",async({page})=>{
+test("Invetory Page heading Check",async({page})=>{
     
     const login = new LoginPage(page);
     await login.gotoWebsite()
     await login.LoginUser(data.name, data.password)
     await page.waitForTimeout(3000)
     await expect(page).toHaveTitle('Swag Labs')
+})
+
+
+test.only("Page referesh move remain on Same  page (Inventory Page)",async({page})=>{
+      const login = new LoginPage(page);
+    await login.gotoWebsite()
+    await login.LoginUser(data.name, data.password)
+    await page.waitForTimeout(3000)
+    await expect(page).toHaveTitle('Swag Labs')
+    await page.reload()
+    await expect(page).toHaveURL(/inventory/)
 })
