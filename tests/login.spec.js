@@ -41,7 +41,7 @@ test("Invetory Page heading Check",async({page})=>{
 })
 
 
-test.only("Page referesh move remain on Same  page (Inventory Page)",async({page})=>{
+test("Page referesh move remain on Same  page (Inventory Page)",async({page})=>{
       const login = new LoginPage(page);
     await login.gotoWebsite()
     await login.LoginUser(data.name, data.password)

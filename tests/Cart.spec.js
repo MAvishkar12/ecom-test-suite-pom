@@ -71,7 +71,7 @@ test("Remove items update card count", async ({ page }) => {
 
 })
 
-test.only("Back from Cart page to Shoping Page", async ({ page }) => {
+test("Back from Cart page to Shoping Page", async ({ page }) => {
     const login = new LoginPage(page);
     await login.gotoWebsite();
     await login.LoginUser(data.name, data.password);

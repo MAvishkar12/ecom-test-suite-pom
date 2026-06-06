@@ -38,7 +38,7 @@ test("Add to cart increse the Count of  Shopping Cart", async ({ page }) => {
     await expect(page.locator('.shopping_cart_badge')).toHaveCount(1)
 })
 
-test.only("Remove Item update the count of CartStore", async ({ page }) => {
+test("Remove Item update the count of CartStore", async ({ page }) => {
     const login = new LoginPage(page);
     await login.gotoWebsite()
     await login.LoginUser(data.name, data.password)

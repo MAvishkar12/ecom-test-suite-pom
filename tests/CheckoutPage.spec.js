@@ -22,7 +22,7 @@ errorTestCases.forEach(({ description, firstName, lastName, postalCode, expected
     })
 })
 
-test.skip('Continue to payment option', async ({ page }) => {
+test('Continue to payment option', async ({ page }) => {
     const payment = new Payment(page)
     await payment.paymentGateWay(data.name, data.password)
     await expect(page).toHaveURL(/checkout-step-two/)
@@ -30,7 +30,7 @@ test.skip('Continue to payment option', async ({ page }) => {
     await expect(page.locator('[data-test="shipping-info-label"]')).toContainText('Shipping Information:')
 })
 
-test.skip('Cancel make reback to product page', async ({ page }) => {
+test('Cancel make reback to product page', async ({ page }) => {
     const payment = new Payment(page)
     await payment.paymentGateWay(data.name, data.password)
     await expect(page).toHaveURL(/checkout-step-two/)
@@ -40,7 +40,7 @@ test.skip('Cancel make reback to product page', async ({ page }) => {
     await expect(page).toHaveURL(/inventory/)
 })
 
-test.only("Make product delivery start", async ({ page }) => {
+test("Make product delivery start", async ({ page }) => {
     const payment = new Payment(page)
     await payment.paymentGateWay(data.name, data.password)
     await expect(page).toHaveURL(/checkout-step-two/)
