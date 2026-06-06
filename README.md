@@ -1,11 +1,12 @@
 # 🧪 SauceDemo QA Test Suite
 
 ![QA Badge](https://img.shields.io/badge/QA-Automation-brightgreen)
+![Playwright](https://img.shields.io/badge/Playwright-JavaScript-orange)
 ![Status](https://img.shields.io/badge/Tests-Passing-success)
 ![Website](https://img.shields.io/badge/Website-saucedemo.com-blue)
 ![License](https://img.shields.io/badge/License-MIT-yellow)
 
-> A comprehensive end-to-end Quality Assurance test suite for [https://www.saucedemo.com](https://www.saucedemo.com) — covering the full user journey from login through payment confirmation.
+> A comprehensive end-to-end Quality Assurance test suite for [https://www.saucedemo.com](https://www.saucedemo.com) — built with **Playwright + JavaScript**, covering the full user journey from login through payment confirmation.
 
 ---
 
@@ -28,7 +29,7 @@
 
 ## 📌 Project Overview
 
-This project contains a structured QA test suite for the **SauceDemo** e-commerce demo application. The goal is to validate the complete user flow — from authentication to order completion — ensuring all critical features behave as expected across different scenarios and user roles.
+This project contains a structured QA test suite for the **SauceDemo** e-commerce demo application. The goal is to validate the complete user flow — from authentication to order completion — ensuring all critical features behave as expected across different user roles and edge cases.
 
 The tests follow a real-world e-commerce workflow:
 
@@ -40,74 +41,69 @@ Login → Product Page → Add to Cart → Remove from Cart → Checkout → Pay
 
 ## ✅ Test Coverage
 
-| Module | Test Area | Status |
+| Module | Test File | Status |
 |---|---|---|
-| 🔐 Authentication | Login | ✅ Covered |
-| 🔐 Authentication | Logout | ✅ Covered |
-| 🛍️ Products | Product Display Page | ✅ Covered |
-| 🛒 Cart | Add to Cart | ✅ Covered |
-| 🛒 Cart | Remove Item from Cart | ✅ Covered |
-| 💳 Checkout | Checkout Gateway / Form | ✅ Covered |
-| 💳 Checkout | Payment Options | ✅ Covered |
-| ✅ Confirmation | Final Order Confirmation Message | ✅ Covered |
+| 🔐 Login & Logout | `tests/login.spec.js` | ✅ Covered |
+| 🛍️ Product Display & Search | `tests/productSearch.spec.js` | ✅ Covered |
+| 🛒 Cart — Add & Remove | `tests/Cart.spec.js` | ✅ Covered |
+| 💳 Checkout Gateway | `tests/CheckoutPage.spec.js` | ✅ Covered |
+| 💰 Payment & Order Summary | `tests/CheckoutPage.spec.js` | ✅ Covered |
+| ✅ Order Confirmation | `tests/CheckoutPage.spec.js` | ✅ Covered |
 
 ---
 
 ## 🛠 Tech Stack
 
-> *(Update this section to match your actual tools)*
-
 | Tool | Purpose |
 |---|---|
-| **Selenium / Playwright / Cypress** | Browser automation & E2E testing |
-| **Python / JavaScript / Java** | Test scripting language |
-| **pytest / Mocha / JUnit** | Test runner & reporting framework |
-| **GitHub Actions** | CI/CD pipeline |
-| **Allure / HTML Report** | Test result reporting |
+| **Playwright** | Browser automation & E2E testing |
+| **JavaScript (Node.js)** | Test scripting language |
+| **@playwright/test** | Test runner, assertions & reporting |
+| **Page Object Model (POM)** | Maintainable test architecture |
+| **HTML / JSON Reporter** | Test result reporting |
+| **GitHub Actions** | CI/CD pipeline (optional) |
 
 ---
 
 ## 📁 Project Structure
 
 ```
-saucedemo-qa/
+PROJECT_1/
 │
-├── tests/
-│   ├── test_login.py              # Login & logout test cases
-│   ├── test_product_page.py       # Product display & sorting tests
-│   ├── test_cart.py               # Add to cart & remove item tests
-│   ├── test_checkout.py           # Checkout gateway & form tests
-│   ├── test_payment.py            # Payment options tests
-│   └── test_order_confirmation.py # Final confirmation message tests
+├── .github/                         # GitHub Actions CI workflows
 │
-├── pages/                         # Page Object Models (POM)
-│   ├── login_page.py
-│   ├── product_page.py
-│   ├── cart_page.py
-│   ├── checkout_page.py
-│   └── confirmation_page.py
+├── pages/                           # Page Object Models (POM)
+│   ├── Checkout.js                  # Checkout page actions & locators
+│   ├── LoginPage.js                 # Login page actions & locators
+│   ├── LogoutPage.js                # Logout actions & locators
+│   └── Payment.js                   # Payment page actions & locators
+│
+├── tests/                           # Test spec files
+│   ├── Cart.spec.js                 # Add to cart & remove item tests
+│   ├── CheckoutPage.spec.js         # Checkout gateway, payment & confirmation tests
+│   ├── login.spec.js                # Login & logout tests
+│   └── productSearch.spec.js        # Product display & search tests
 │
 ├── utils/
-│   ├── config.py                  # Base URL, timeouts, env config
-│   └── helpers.py                 # Reusable helper functions
+│   └── UserPaymentError.js          # Reusable error handlers & payment utilities
 │
-├── reports/                       # Generated test reports
+├── playwright-report/               # Auto-generated Playwright HTML reports
+├── test-results/                    # Raw test result output
 │
-├── requirements.txt               # Python dependencies
-├── conftest.py                    # Fixtures & setup/teardown
-└── README.md
+├── .gitignore                       # Files/folders excluded from Git
+├── data.json                        # Test data (credentials, user info, etc.)
+├── package-lock.json                # Locked dependency versions
+└── README.md                        # Project documentation
 ```
 
 ---
 
 ## ⚙️ Prerequisites
 
-Before running the tests, make sure you have the following installed:
+Make sure you have the following installed before running the tests:
 
-- Python 3.8+ (or Node.js if using JS framework)
-- pip / npm
-- Google Chrome / Firefox
-- ChromeDriver / GeckoDriver (matching your browser version)
+- [Node.js](https://nodejs.org/) v18 or higher
+- npm (comes with Node.js)
 - Git
 
 ---
@@ -120,16 +116,14 @@ git clone https://github.com/your-username/saucedemo-qa.git
 cd saucedemo-qa
 ```
 
-**2. Create and activate a virtual environment (recommended):**
+**2. Install dependencies:**
 ```bash
-python -m venv venv
-source venv/bin/activate        # macOS/Linux
-venv\Scripts\activate           # Windows
+npm install
 ```
 
-**3. Install dependencies:**
+**3. Install Playwright browsers:**
 ```bash
-pip install -r requirements.txt
+npx playwright install
 ```
 
 ---
@@ -138,89 +132,145 @@ pip install -r requirements.txt
 
 **Run the full test suite:**
 ```bash
-pytest tests/
+npx playwright test
 ```
 
-**Run a specific test module:**
+**Run a specific test file:**
 ```bash
-pytest tests/test_login.py
-pytest tests/test_cart.py
+npx playwright test tests/login.spec.js
+npx playwright test tests/Cart.spec.js
+npx playwright test tests/CheckoutPage.spec.js
+npx playwright test tests/productSearch.spec.js
+```
+
+**Run tests in headed mode (see the browser):**
+```bash
+npx playwright test --headed
+```
+
+**Run tests in a specific browser:**
+```bash
+npx playwright test --project=chromium
+npx playwright test --project=firefox
+npx playwright test --project=webkit
 ```
 
 **Run with verbose output:**
 ```bash
-pytest tests/ -v
+npx playwright test --reporter=list
 ```
 
-**Run with HTML report:**
+**Generate & open HTML report:**
 ```bash
-pytest tests/ --html=reports/report.html --self-contained-html
+npx playwright test --reporter=html
+npx playwright show-report
 ```
 
-**Run tests by tag/marker:**
+**Run tests in debug mode:**
 ```bash
-pytest tests/ -m "smoke"
-pytest tests/ -m "regression"
+npx playwright test --debug
 ```
 
 ---
 
 ## 🔍 Test Scenarios
 
-### 🔐 1. Login Tests (`test_login.py`)
+### 🔐 1. Login Tests — `tests/login.spec.js`
+Uses → `pages/LoginPage.js`
+
 - ✅ Valid login with standard user credentials
 - ✅ Login with locked-out user (expects error message)
-- ✅ Login with invalid username/password
-- ✅ Login with empty fields (form validation)
-- ✅ Login with problem user / performance glitch user
+- ✅ Login with invalid username and/or password
+- ✅ Login with empty username field
+- ✅ Login with empty password field
+- ✅ Login with both fields empty
 
-### 🚪 2. Logout Tests (`test_login.py`)
+### 🚪 2. Logout Tests — `tests/login.spec.js`
+Uses → `pages/LogoutPage.js`
+
 - ✅ Successful logout via hamburger menu
-- ✅ Verify user is redirected to login page after logout
+- ✅ Verify redirect to login page after logout
 - ✅ Verify protected pages are inaccessible after logout
 
-### 🛍️ 3. Product Display Page Tests (`test_product_page.py`)
+### 🛍️ 3. Product Display Page Tests — `tests/productSearch.spec.js`
+
 - ✅ All products are displayed on the inventory page
 - ✅ Product name, image, description, and price are visible
-- ✅ Sort products by Name (A→Z / Z→A)
-- ✅ Sort products by Price (Low→High / High→Low)
-- ✅ Clicking a product opens its detail page
-- ✅ Product detail page displays correct information
+- ✅ Sort products by Name (A→Z)
+- ✅ Sort products by Name (Z→A)
+- ✅ Sort products by Price (Low→High)
+- ✅ Sort products by Price (High→Low)
+- ✅ Clicking a product navigates to its detail page
+- ✅ Product detail page shows correct name, price, and description
 
-### 🛒 4. Add to Cart Tests (`test_cart.py`)
+### 🛒 4. Add to Cart Tests — `tests/Cart.spec.js`
+
 - ✅ Add a single product to the cart from the inventory page
 - ✅ Add multiple products to the cart
-- ✅ Cart badge count updates correctly after adding items
-- ✅ Added items are correctly listed in the cart page
+- ✅ Cart badge counter increments correctly
+- ✅ Added items appear correctly in the cart page
 - ✅ Add to cart from individual product detail page
 
-### ❌ 5. Remove Item from Cart Tests (`test_cart.py`)
+### ❌ 5. Remove Item from Cart Tests — `tests/Cart.spec.js`
+
 - ✅ Remove an item directly from the cart page
 - ✅ Remove an item using the "Remove" button on the inventory page
-- ✅ Cart badge count decreases after removing items
+- ✅ Cart badge count decrements after removing an item
 - ✅ Cart is empty when all items are removed
+- ✅ Removed items no longer appear in the cart list
 
-### 💳 6. Checkout Gateway Tests (`test_checkout.py`)
+### 💳 6. Checkout Gateway Tests — `tests/CheckoutPage.spec.js`
+Uses → `pages/Checkout.js`
+
 - ✅ Navigate to checkout from the cart page
 - ✅ Checkout form displays (First Name, Last Name, Postal Code)
-- ✅ Submit form with all valid details
-- ✅ Submit form with missing First Name (expects error)
-- ✅ Submit form with missing Last Name (expects error)
-- ✅ Submit form with missing Postal Code (expects error)
+- ✅ Submit form with all valid details — proceeds to order summary
+- ✅ Submit with missing First Name — displays validation error
+- ✅ Submit with missing Last Name — displays validation error
+- ✅ Submit with missing Postal Code — displays validation error
 - ✅ Cancel checkout returns user to cart
 
-### 💰 7. Payment & Order Summary Tests (`test_payment.py`)
-- ✅ Order overview page displays all selected items
-- ✅ Item total price is calculated correctly
-- ✅ Tax is displayed on the summary page
-- ✅ Final total (items + tax) is accurate
-- ✅ "Finish" button completes the order
+### 💰 7. Payment & Order Summary Tests — `tests/CheckoutPage.spec.js`
+Uses → `pages/Payment.js`, `utils/UserPaymentError.js`
 
-### ✅ 8. Order Confirmation Message Tests (`test_order_confirmation.py`)
-- ✅ Confirmation page is displayed after successful order
-- ✅ Success header text: *"Thank you for your order!"*
-- ✅ Confirmation message body is displayed
-- ✅ "Back Home" button returns the user to the products page
+- ✅ Order overview page displays all selected items
+- ✅ Item total price is calculated and displayed correctly
+- ✅ Tax amount is shown on the summary page
+- ✅ Final total (items + tax) is accurate
+- ✅ Payment error handling for invalid/incomplete details
+
+### ✅ 8. Order Confirmation Message Tests — `tests/CheckoutPage.spec.js`
+
+- ✅ Confirmation page displays after successful order placement
+- ✅ Success header: *"Thank you for your order!"* is shown
+- ✅ Confirmation body message is displayed
+- ✅ "Back Home" button navigates back to the products page
+
+---
+
+## 🗂 Test Data
+
+Test data such as user credentials and form inputs are stored in `data.json`:
+
+```json
+{
+  "users": {
+    "standard": {
+      "username": "standard_user",
+      "password": "secret_sauce"
+    },
+    "locked": {
+      "username": "locked_out_user",
+      "password": "secret_sauce"
+    }
+  },
+  "checkout": {
+    "firstName": "John",
+    "lastName": "Doe",
+    "postalCode": "411001"
+  }
+}
+```
 
 ---
 
@@ -230,27 +280,29 @@ SauceDemo provides the following built-in test users:
 
 | Username | Password | Behavior |
 |---|---|---|
-| `standard_user` | `secret_sauce` | Normal user — all features work |
-| `locked_out_user` | `secret_sauce` | Blocked at login |
-| `problem_user` | `secret_sauce` | UI bugs/issues throughout |
-| `performance_glitch_user` | `secret_sauce` | Simulated slow performance |
+| `standard_user` | `secret_sauce` | Normal user — all features work correctly |
+| `locked_out_user` | `secret_sauce` | Blocked at login with error message |
+| `problem_user` | `secret_sauce` | UI bugs and broken elements throughout |
+| `performance_glitch_user` | `secret_sauce` | Simulated slow/delayed performance |
 | `error_user` | `secret_sauce` | Throws errors on certain actions |
-| `visual_user` | `secret_sauce` | Visual layout issues |
+| `visual_user` | `secret_sauce` | Visual layout distortions |
 
-> ⚠️ These credentials are publicly available on the SauceDemo website and are intended for testing purposes only.
+> ⚠️ These credentials are publicly available on the SauceDemo website and are intended solely for testing purposes.
 
 ---
 
 ## 🐛 Bug Reporting
 
-If you discover a bug or a test failure, please open an issue using the following template:
+Found a bug or a failing test? Open an issue using this template:
 
 ```
-**Title:** [Brief description of the bug]
+**Title:** [Short description of the bug]
 
 **Environment:**
-- Browser: Chrome 124 / Firefox 125
-- OS: Windows 11 / macOS Ventura
+- Browser: Chromium / Firefox / WebKit
+- OS: Windows 11 / macOS / Ubuntu
+- Node.js version: v18.x
+- Playwright version: x.x.x
 - Test User: standard_user
 
 **Steps to Reproduce:**
@@ -264,40 +316,43 @@ If you discover a bug or a test failure, please open an issue using the followin
 **Actual Result:**
 [What actually happened]
 
-**Screenshots/Logs:**
-[Attach if applicable]
+**Screenshots / Trace:**
+[Attach Playwright trace or screenshot if applicable]
 ```
 
 ---
 
 ## 🤝 Contributing
 
-Contributions are welcome! To contribute:
+Contributions are welcome! Please follow these steps:
 
 1. Fork the repository
-2. Create a new branch: `git checkout -b feature/your-test-name`
-3. Add your test cases with proper documentation
-4. Ensure all existing tests still pass
-5. Submit a Pull Request with a clear description
+2. Create a feature branch: `git checkout -b feature/test-your-feature`
+3. Write your tests following the Page Object Model pattern
+4. Ensure all existing tests still pass: `npx playwright test`
+5. Commit your changes: `git commit -m "feat: add tests for XYZ"`
+6. Push to your branch: `git push origin feature/test-your-feature`
+7. Open a Pull Request with a clear description of what was added
 
-Please follow the existing naming conventions and use Page Object Model (POM) patterns when adding new tests.
+**Code conventions:**
+- Use Page Object Model (POM) for all page interactions — add new page classes in `/pages`
+- Store reusable logic in `/utils`
+- Name spec files as `*.spec.js`
+- Keep test data in `data.json`
 
 ---
 
-## 📄 License
-
-This project is licensed under the [MIT License](LICENSE).
 
 ---
 
 ## 👨‍💻 Author
 
 **Your Name**
-- GitHub: [@your-username](https://github.com/your-username)
-- LinkedIn: [your-linkedin](https://linkedin.com/in/your-profile)
+- GitHub: [MAvishkar12](https://github.com/MAvishkar12)
+- LinkedIn: [Avishkar_More](https://www.linkedin.com/in/moreavishkar1217/)
 
 ---
 
 <p align="center">
-  Made with ❤️ for QA Excellence | Tested on <a href="https://www.saucedemo.com">saucedemo.com</a>
+  Made with ❤️ for QA Excellence &nbsp;|&nbsp; Tested on <a href="https://www.saucedemo.com">saucedemo.com</a> &nbsp;|&nbsp; Powered by Playwright
 </p>
