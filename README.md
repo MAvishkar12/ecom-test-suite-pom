@@ -346,8 +346,9 @@ Contributions are welcome! Please follow these steps:
 ---
 
 Allure Report 
-![Uploading image.png…]()
-![Uploading image.png…]()
+<img width="1920" height="1080" alt="Screenshot 2026-06-07 155541" src="https://github.com/user-attachments/assets/fe3e1e87-7b41-455d-abf6-0ccd9784fcd4" />
+<img width="1920" height="1080" alt="Screenshot 2026-06-07 155214" src="https://github.com/user-attachments/assets/7318a1b6-ce3c-4765-8cbd-5fec6604a463" />
+
 
 
 
