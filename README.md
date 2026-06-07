@@ -345,6 +345,12 @@ Contributions are welcome! Please follow these steps:
 
 ---
 
+Allure Report 
+![Uploading image.png…]()
+![Uploading image.png…]()
+
+
+
 ## 👨‍💻 Author
 
 **Your Name**
